@@ -4,6 +4,8 @@
 # and database migrations
 # loads authentication routes via a blueprint
 
+# Initialize Flask App
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -21,7 +23,7 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
-    # app.config['SECRET_KEY'] = 'your_secret_key_here'
+    # app.config['SECRET_KEY'] = 'secret_key'
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "fallback_secret")
     #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost:5432/ecommerce_db'
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
