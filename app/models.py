@@ -1,5 +1,6 @@
 # Database Models
 
+from datetime import datetime
 from app import db, login_manager
 from flask_login import UserMixin
 
@@ -14,6 +15,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
+    # relationship: one user can have many orders
+    orders = db.relationship("Order", backref="customer", lazy=True)
+
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)          # unique product ID
@@ -21,3 +25,24 @@ class Product(db.Model):
     description = db.Column(db.Text)                      # longer text description
     price = db.Column(db.Float, nullable=False)           # product price (required)
     stock = db.Column(db.Integer, default=0)              # quantity in stock (defaults to 0)
+
+    # relationship: product can appear in many order items
+    order_items = db.relationship("OrderItem", backref="product", lazy=True)
+
+# Order - tracks who made the order and when
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)  # who placed the order
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)             # when order was placed
+    status = db.Column(db.String(20), default="Pending")                       # e.g. Pending, Shipped, Completed
+
+    # relationship: one order can have many order items
+    items = db.relationship("OrderItem", backref="order", lazy=True)
+
+# OrderItem - links each product to an order (one order can contain multiple products)
+class OrderItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey("order.id"), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=1)                 # how many of this product
+    price_at_purchase = db.Column(db.Float, nullable=False)                     # price locked at time of purchase

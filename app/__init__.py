@@ -25,8 +25,10 @@ def create_app():
     app = Flask(__name__)
     # app.config['SECRET_KEY'] = 'secret_key'
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "fallback_secret")
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost:5432/ecommerce_db'
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost:5432/ecommerce_db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres@localhost:5432/flask_ecommerce"
+
+    # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 
     db.init_app(app)
     bcrypt.init_app(app)
@@ -39,5 +41,8 @@ def create_app():
 
     from app.auth.routes import auth
     app.register_blueprint(auth)
+
+    from app.main.routes import main
+    app.register_blueprint(main)
 
     return app
