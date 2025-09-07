@@ -42,6 +42,7 @@ def login():
             flash('Login failed', 'danger')
     return render_template('login.html')
 
+# Logout
 @auth.route('/logout')
 @login_required
 def logout():

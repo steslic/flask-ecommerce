@@ -1,26 +1,14 @@
-<!-- <!doctype html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h1>Welcome, {{ current_user.username }}!</h1>
-    <a href="{{ url_for('auth.logout') }}">Logout</a>
-</body>
-</html> -->
-
-
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - E-Commerce App</title>
-    <!-- Bootstrap CDN for quick styling -->
-    <link 
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
-      rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container">
@@ -32,7 +20,7 @@
                     </li>
                     {% if current_user.is_admin %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.admin_dashboard') }}">Admin</a>
+                        <a class="nav-link" href="{{ url_for('main.admin_products') }}">Admin</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
@@ -47,8 +35,8 @@
         <div class="text-center mt-5">
             <h1>Welcome, {{ current_user.username }}!</h1>
             <p class="lead">Start shopping or explore your account.</p>
-            <a href="#" class="btn btn-primary">View Products</a>
-            <!-- <a href="{{ url_for('main.products') }}" class="btn btn-primary">View Products</a> -->
+            <!-- <a href="#" class="btn btn-primary">View Products</a> -->
+            <a href="{{ url_for('main.products') }}" class="btn btn-primary">View Products</a>
         </div>
     </div>
 
@@ -56,8 +44,8 @@
         <small>&copy; 2025, E-Commerce App</small>
     </footer>
 
-    <script 
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
     </script>
 </body>
+
 </html>
