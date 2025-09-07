@@ -51,6 +51,37 @@
 
     <div class="container">
         <h2 class="mb-4 text-center">Our Products</h2>
+
+        <!-- Search / Filter form -->
+        <div class="card mb-4 p-3 shadow-sm">
+            <form method="GET" action="{{ url_for('main.products') }}" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label for="search_name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="search_name" name="search_name"
+                        placeholder="Search by name">
+                </div>
+                <div class="col-md-4">
+                    <label for="search_description" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="search_description" name="search_description"
+                        placeholder="Search by description">
+                </div>
+                <div class="col-md-2">
+                    <label for="min_price" class="form-label">Min Price</label>
+                    <input type="number" step="0.01" class="form-control" id="min_price" name="min_price"
+                        placeholder="0.00">
+                </div>
+                <div class="col-md-2">
+                    <label for="max_price" class="form-label">Max Price</label>
+                    <input type="number" step="0.01" class="form-control" id="max_price" name="max_price"
+                        placeholder="0.00">
+                </div>
+                <div class="col-md-12 text-end">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Products grid -->
         <div class="row">
             {% for product in products %}
             <div class="col-md-4 mb-4">

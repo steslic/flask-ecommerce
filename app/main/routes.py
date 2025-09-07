@@ -1,6 +1,7 @@
 # Main Blueprint
 
 # app/main/routes.py
+
 from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
 from flask_login import login_required, current_user
 from app import db
@@ -14,7 +15,6 @@ def index():
         return redirect(url_for('main.home'))
     else:
         return redirect(url_for('auth.login'))
-    #return redirect(url_for("main.home"))
 
 # Home
 @main.route("/home")
@@ -23,11 +23,46 @@ def home():
     return render_template("home.html")
 
 # Products
+# @main.route("/products")
+# @login_required
+# def products():
+#     # Fetch all products from the db
+#     products_list = Product.query.all()
+#     return render_template("products.html", products=products_list)
+
+# Products
 @main.route("/products")
 @login_required
 def products():
-    # Fetch all products from the db
-    products_list = Product.query.all()
+    # Get search parameters from query string
+    search_name = request.args.get("search_name", "").strip()
+    search_description = request.args.get("search_description", "").strip()
+    min_price = request.args.get("min_price", "").strip()
+    max_price = request.args.get("max_price", "").strip()
+
+    # Start with base query
+    query = Product.query
+
+    # Apply filters if values are provided
+    if search_name:
+        query = query.filter(Product.name.ilike(f"%{search_name}%"))
+    if search_description:
+        query = query.filter(Product.description.ilike(f"%{search_description}%"))
+    if min_price:
+        try:
+            min_price_val = float(min_price)
+            query = query.filter(Product.price >= min_price_val)
+        except ValueError:
+            pass
+    if max_price:
+        try:
+            max_price_val = float(max_price)
+            query = query.filter(Product.price <= max_price_val)
+        except ValueError:
+            pass
+
+    # Execute query
+    products_list = query.all()
     return render_template("products.html", products=products_list)
 
 # Read Product (admin)
