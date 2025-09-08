@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('main.home') }}">E-Commerce</a>
@@ -26,6 +27,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
                     </li>
+
+                    <!-- Cart button -->
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.cart') }}" class="btn btn-outline-primary ms-2">
+                            🛒 Cart
+                            {% if session.get('cart') %}
+                                <span class="badge bg-danger">{{ session['cart']|length }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>

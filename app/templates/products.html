@@ -27,6 +27,18 @@
 
 <body>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('main.home') }}">E-Commerce</a>
@@ -44,6 +56,15 @@
                 {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+                <!-- Cart button -->
+                <li class="nav-item">
+                    <a href="{{ url_for('main.cart') }}" class="btn btn-outline-primary ms-2">
+                        🛒 Cart
+                        {% if session.get('cart') %}
+                            <span class="badge bg-danger">{{ session['cart']|length }}</span>
+                        {% endif %}
+                    </a>
                 </li>
             </ul>
         </div>
@@ -90,10 +111,18 @@
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.description }}</p>
                     </div>
+                    <!-- Price and Stock -->
                     <div class="card-footer">
                         <p class="mb-1"><strong>Price:</strong> ${{ product.price }}</p>
                         <p class="mb-0"><strong>Stock:</strong> {{ product.stock }}</p>
                     </div>
+                    <!-- Add to Cart Form -->
+                    <form action="{{ url_for('main.add_to_cart', product_id=product.id) }}" method="POST">
+                        <button type="submit" class="btn btn-success btn-sm" {% if product.stock==0 %}disabled{% endif
+                            %}>
+                            Add to Cart
+                        </button>
+                    </form>
                 </div>
             </div>
             {% endfor %}
