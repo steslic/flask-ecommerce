@@ -39,6 +39,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Image</th>
                     <th>Description</th>
                     <th>Price</th>
                     <th>Stock</th>
@@ -50,6 +51,23 @@
                 <tr>
                     <td>{{ product.id }}</td>
                     <td>{{ product.name }}</td>
+                    <!-- Image -->
+                    <!-- <td>
+                        {% if product.image_filename %}
+                        <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}"
+                            alt="{{ product.name }}" width="100">
+                        {% else %}
+                        <span>No image</span>
+                        {% endif %}
+                    </td> -->
+                    <td>
+                        {% if product.image_filename %}
+                        <img src="{{ product.image_filename }}" alt="{{ product.name }}" width="100">
+                        {% else %}
+                        <span>No image</span>
+                        {% endif %}
+                    </td>
+
                     <!-- Show description or "None" -->
                     <td>{{ product.description if product.description else "None" }}</td>
                     <td>{{ product.price }}</td>

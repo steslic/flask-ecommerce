@@ -10,7 +10,8 @@
 <body>
     <div class="container mt-5">
         <h1>Create Product</h1>
-        <form method="POST">
+        <!-- modified enctype -->
+        <form method="POST" enctype="multipart/form-data">
             <!-- Product Name -->
             <div class="mb-3">
                 <label for="name" class="form-label">Product Name</label>
@@ -35,6 +36,12 @@
             <div class="mb-3">
                 <label for="stock" class="form-label">Stock</label>
                 <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter stock (optional)">
+            </div>
+
+            <!-- NEW: Product Image Upload -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Product Image</label>
+                <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
             </div>
 
             <!-- Buttons -->

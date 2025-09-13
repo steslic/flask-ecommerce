@@ -39,7 +39,9 @@
       {% for item in cart %}
       <tr>
         <td>{{ item.product.name }}</td>
-        <td>${{ "%.2f"|format(item.product.price) }}</td>
+        
+        <!-- <td>${{ "%.2f"|format(item.product.price) }}</td> -->
+        <td>${{ "{:,.2f}".format(item.product.price) }}</td>
         <!-- <td>{{ item.quantity }}</td> -->
         <td>
           <form action="{{ url_for('main.update_cart', product_id=item.product.id) }}" method="POST">
@@ -48,7 +50,8 @@
             <button type="submit" class="btn btn-sm btn-primary w-100">Update</button>
           </form>
         </td>        
-        <td>${{ "%.2f"|format(item.subtotal) }}</td>
+        <!-- <td>${{ "%.2f"|format(item.subtotal) }}</td> -->
+        <td>${{ "{:,.2f}".format(item.subtotal) }}</td>
         <td>
           <form action="{{ url_for('main.remove_from_cart', product_id=item.product.id) }}" method="POST" style="display:inline;">
             <button type="submit" class="btn btn-sm btn-danger">X</button>
@@ -59,7 +62,8 @@
     </tbody>
   </table>
 
-  <h4>Total: ${{ "%.2f"|format(total) }}</h4>
+  <!-- <h4>Total: ${{ "%.2f"|format(total) }}</h4> -->
+  <h4>Total: ${{ "{:,.2f}".format(total) }}</h4>
 
   <form action="{{ url_for('main.checkout') }}" method="POST">
     <button type="submit" class="btn btn-success">Checkout</button>

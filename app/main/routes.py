@@ -2,12 +2,33 @@
 
 # app/main/routes.py
 
-from flask import Blueprint, render_template, redirect, url_for, request, flash, abort, session
+from flask import Blueprint, render_template, redirect, url_for, request, flash, abort, session, current_app
 from flask_login import login_required, current_user
 from app import db
 from app.models import Product
 
+from werkzeug.utils import secure_filename  # NEW
+import os  # NEW
+import uuid  # NEW
+
+import cloudinary.uploader # NEW 
+
+# Base directory
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# Folder to store product images
+UPLOAD_FOLDER = os.path.join(BASE_DIR, '..', 'static', 'uploads')
+
+# Check that folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 main = Blueprint('main', __name__)
+
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"} # NEW 
+
+# NEW 
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # / 
 @main.route("/")
@@ -189,14 +210,46 @@ def admin_products():
 def create_product():
     if not current_user.is_admin:
         abort(403)
+        
+    # NEW 
+    UPLOAD_FOLDER = os.path.join(current_app.root_path, "static", "uploads")
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
     if request.method == "POST":
         name = request.form['name']
         description = request.form['description'] or "None" # new
         price = request.form['price']
         stock = request.form['stock'] or 0 # new
-        # product = Product(name=name, price=price)
-        product = Product(name=name, description=description, price=price, stock=stock)
+        
+        # NEW: Handle image upload
+        image_file = request.files.get("image")
+        # image_filename = None
+
+        # if image_file and allowed_file(image_file.filename):
+        #     ext = image_file.filename.rsplit(".", 1)[1].lower()
+        #     unique_name = f"{uuid.uuid4().hex}.{ext}"  # avoid overwriting files
+        #     image_path = os.path.join(UPLOAD_FOLDER, unique_name)
+        #     image_file.save(image_path)
+        #     image_filename = unique_name
+        
+        
+        # # product = Product(name=name, price=price)
+        # # NEW field
+        # product = Product(name=name, description=description, price=price, stock=stock, image_filename=image_filename)
+        image_url = None
+        if image_file and allowed_file(image_file.filename):
+            # Upload to Cloudinary and get the URL
+            upload_result = cloudinary.uploader.upload(image_file, public_id=f"product_{uuid.uuid4().hex}")
+            image_url = upload_result.get("secure_url")
+
+        # Store URL instead of filename
+        product = Product(
+            name=name,
+            description=description,
+            price=price,
+            stock=stock,
+            image_filename=image_url  # stores full Cloudinary URL
+        )
 
         db.session.add(product)
         db.session.commit()
@@ -216,7 +269,18 @@ def edit_product(product_id):
         product.name = request.form['name']
         product.description = request.form['description'] or "None" # new
         product.price = request.form['price']
-        product.stock = request.form['stock'] or 0 # new
+        product.stock = request.form['stock'] or 0 
+        
+        # New image upload
+        image_file = request.files.get("image")
+        if image_file and allowed_file(image_file.filename):
+            # Upload to Cloudinary
+            upload_result = cloudinary.uploader.upload(
+                image_file,
+                public_id=f"product_{uuid.uuid4().hex}"
+            )
+            product.image_filename = upload_result.get("secure_url")
+        
         db.session.commit()
         flash("Product updated!", "success")
         return redirect(url_for("main.admin_products"))

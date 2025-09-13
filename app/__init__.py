@@ -14,6 +14,18 @@ from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
 
+# NEW 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name="dvczpxlxn",
+    api_key="619847943558537",
+    api_secret="Iyb6AJF8S4DZWOAuntz8vPqPrk4"
+)
+
+
 load_dotenv()
 
 db = SQLAlchemy()
