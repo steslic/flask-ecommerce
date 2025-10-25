@@ -1,0 +1,91 @@
+h1 {
+    font-size: 1.75rem;  /* same as Bootstrap h2 */
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+/* Fixed button group in bottom-left corner */
+.button-group-fixed {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    z-index: 1000;
+}
+
+/* Pill-shaped "bubble" buttons */
+.button-group-fixed .btn,
+.button-group-fixed a.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 999px;        /* pill shape */
+    line-height: 1.4;
+    height: 38px;                /* uniform height */
+    min-width: 120px;            /* consistent width */
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* soft bubble shadow */
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+/* Primary button (Update) */
+.button-group-fixed .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+.button-group-fixed .btn-primary:hover {
+    background-color: #0069d9;
+    transform: translateY(-2px);
+}
+
+/* Secondary button (Cancel) */
+.button-group-fixed .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.button-group-fixed .btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Danger button (Delete) */
+.button-group-fixed .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.button-group-fixed .btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+/* Small press animation */
+.button-group-fixed .btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: make them responsive */
+@media (max-width: 768px) {
+    .button-group-fixed {
+        bottom: 15px;
+        left: 15px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .button-group-fixed .btn {
+        min-width: 100px;
+        height: 34px;
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+}

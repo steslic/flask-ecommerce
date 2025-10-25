@@ -52,3 +52,13 @@ class OrderItem(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)                 # how many of this product
     price_at_purchase = db.Column(db.Float, nullable=False)                     # price locked at time of purchase
+    
+# CartItem 
+class CartItem(db.Model):
+    __tablename__ = "cart_items"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=1)
+    
+    product = db.relationship("Product", backref="cart_items")

@@ -1,0 +1,213 @@
+/* Bubble table */
+.bubble-table {
+    border-collapse: separate !important;
+    border-spacing: 12px !important;
+    /* adds spacing between cells */
+}
+
+.bubble-table th,
+.bubble-table td {
+    background-color: #f8f9fa;
+    /* light gray bubble */
+    border: none !important;
+    border-radius: 12px;
+    /* makes it bubble-shaped */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.bubble-table thead th {
+    background-color: #e9ecef;
+    font-weight: 600;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.quantity-control .btn {
+    width: 32px;
+    height: 32px;
+    line-height: 1;
+    font-weight: bold;
+    padding: 0;
+}
+
+.quantity-input {
+    width: 45px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.quantity-control .btn {
+    width: 32px;
+    height: 32px;
+    line-height: 1;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.quantity-control .btn:hover {
+    background-color: #e9ecef;
+    transform: scale(1.05);
+}
+
+.quantity-control .btn:active {
+    background-color: #dee2e6;
+    transform: scale(0.97);
+}
+
+.quantity-input {
+    width: 45px;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    font-weight: 500;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Total and buttons area */
+h4 {
+    text-align: left;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.btn-success,
+.btn-secondary {
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-weight: 500;
+}
+
+/* Empty cart message */
+p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.btn-primary {
+    display: block;
+    margin: 15px auto;
+    border-radius: 8px !important;
+}
+
+/* Styled remove button */
+.remove-btn {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
+    /* centers bubble horizontally in the cell */
+    display: flex;
+    align-items: center;
+    /* vertical centering of the X */
+    justify-content: center;
+    /* horizontal centering of the X */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    color: #dc3545;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0;
+    line-height: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    vertical-align: middle;
+    /* centers within the table cell */
+}
+
+.remove-btn:hover {
+    background-color: #f8d7da;
+    transform: scale(1.05);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+}
+
+.remove-btn:active {
+    background-color: #f5c2c7;
+    transform: scale(0.95);
+}
+
+/* Left-align product name and description */
+/* .bubble-table td:first-child, */
+.bubble-table td.description-cell {
+    text-align: left;
+    padding-left: 12px;
+}
+
+/* Bubble-style buttons for checkout/continue shopping */
+.bubble-btn {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    padding: 8px 18px;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.bubble-btn:hover {
+    background-color: #e9ecef;
+    transform: scale(1.05);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+}
+
+.bubble-btn:active {
+    background-color: #dee2e6;
+    transform: scale(0.97);
+}
+
+.bubble-btn.checkout {
+    border-color: #28a745;
+    color: #ffffff;
+    background-color: #28a745;
+}
+
+.bubble-btn.checkout:hover {
+    background-color: #218838;
+}
+
+.bubble-btn.continue {
+    border-color: #6c757d;
+    color: #ffffff;
+    background-color: #6c757d;
+}
+
+.bubble-btn.continue:hover {
+    background-color: #5a6268;
+}
+
+.bubble-btn.shop-now {
+    border-color: #007bff;
+    color: #ffffff;
+    background-color: #007bff;
+}
+
+.bubble-btn.shop-now:hover {
+    background-color: #0069d9;
+}

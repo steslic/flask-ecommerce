@@ -5,7 +5,6 @@
 # loads authentication routes via a blueprint
 
 # Initialize Flask App
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -14,10 +13,12 @@ from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
 
-# NEW 
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
+from flask_cors import CORS 
+from flask_jwt_extended import JWTManager
 
 cloudinary.config(
     cloud_name="dvczpxlxn",
@@ -25,13 +26,13 @@ cloudinary.config(
     api_secret="Iyb6AJF8S4DZWOAuntz8vPqPrk4"
 )
 
-
 load_dotenv()
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 migrate = Migrate()
+jwt = JWTManager()  
 
 def create_app():
     app = Flask(__name__)
@@ -41,20 +42,36 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres@localhost:5432/flask_ecommerce"
 
     # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
-
+    app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+    app.config['SESSION_COOKIE_SECURE'] = False 
+    # Initialize extensions
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     # migrate = Migrate(app, db)
     migrate.init_app(app, db)
+    
+    jwt.init_app(app) # NEW 
+    
+    # CORS configuration for React development (NEW)
+    # CORS(app, origins=['http://localhost:3000'], supports_credentials=True)  # NEW
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
 
+    # Register blueprints
     from app.auth.routes import auth
     app.register_blueprint(auth)
 
     from app.main.routes import main
     app.register_blueprint(main)
+    
+    # NEW: Register API blueprint
+    from app.auth.routes import api_auth
+    app.register_blueprint(api_auth)
 
+    from app.main.routes import api
+    app.register_blueprint(api) 
+    
     return app

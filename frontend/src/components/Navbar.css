@@ -1,0 +1,22 @@
+.cart-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #0d6efd;
+    background-color: #ffffff;
+    color: #0d6efd;
+    text-decoration: none; /* remove underline */
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .cart-btn:hover {
+    background-color: #e7f1ff;
+    transform: scale(1.05);
+  }
+  
+  .cart-btn:active {
+    transform: scale(0.97);
+  }
