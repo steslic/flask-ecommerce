@@ -41,7 +41,8 @@ def create_app():
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost:5432/ecommerce_db'
     # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres@localhost:5432/flask_ecommerce"
     # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://flask_ecommerce_db_vp25_user:x1GF7vUhwJix8jRQFq3YWEfDTDdF5bu0@dpg-d3uirv63jp1c73aashs0-a/flask_ecommerce_db_vp25"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://flask_ecommerce_db_vp25_user:x1GF7vUhwJix8jRQFq3YWEfDTDdF5bu0@dpg-d3uirv63jp1c73aashs0-a.oregon-postgres.render.com/flask_ecommerce_db_vp25"
+        
     
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         "connect_args": {"sslmode": "require"}
