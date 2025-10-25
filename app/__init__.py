@@ -55,7 +55,10 @@ def create_app():
     
     # CORS configuration for React development (NEW)
     # CORS(app, origins=['http://localhost:3000'], supports_credentials=True)  # NEW
-    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
+    CORS(app, supports_credentials=True, origins=[
+        "https://flask-ecommerce-o41y.onrender.com",
+        "http://localhost:3000"
+    ])
 
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
