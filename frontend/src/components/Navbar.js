@@ -14,12 +14,20 @@ export default function Navbar() {
     const fetchData = async () => {
         try {
             // Fetch current user
-            const userRes = await axios.get("http://localhost:5000/api/current_user", { withCredentials: true });
+            // const userRes = await axios.get("http://localhost:5000/api/current_user", { withCredentials: true });
+            const userRes = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/current_user`,
+                { withCredentials: true }
+            );
             setUser(userRes.data.username);
             setIsAdmin(userRes.data.is_admin);
 
             // Fetch cart count
-            const cartRes = await axios.get("http://localhost:5000/api/cart/count", { withCredentials: true });
+            // const cartRes = await axios.get("http://localhost:5000/api/cart/count", { withCredentials: true });
+            const cartRes = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/cart/count`,
+                { withCredentials: true }
+            );
             setCartCount(cartRes.data.count);
         } catch (err) {
             console.log("Not logged in or failed to fetch cart count");
@@ -38,7 +46,12 @@ export default function Navbar() {
     // Handle logout
     const handleLogout = async () => {
         try {
-            await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
+            // await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
+            await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/auth/logout`,
+                {},
+                { withCredentials: true }
+            );
             setUser(null);
             setCartCount(0);
             navigate("/login");

@@ -14,11 +14,16 @@ export default function Login({ setCurrentUser }) {
         e.preventDefault();
         try {
             // Call Flask login API
+            // const response = await axios.post(
+            //     "http://localhost:5000/api/auth/login",
+            //     { email, password },
+            //     { withCredentials: true}
+            // );
             const response = await axios.post(
-                "http://localhost:5000/api/auth/login",
+                `${process.env.REACT_APP_API_URL}/api/auth/login`,
                 { email, password },
-                { withCredentials: true}
-            );
+                { withCredentials: true }
+            );            
 
             // Update global user state in App.js
             setCurrentUser({

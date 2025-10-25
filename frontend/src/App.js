@@ -30,7 +30,9 @@ function App() {
     const fetchUser = async () => {
       try {
         // Call the Flask API 
-        const res = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true });
+        // REACT_APP_API_URL
+        // const res = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true });
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/user`, { withCredentials: true });
         if (res.data.user) {
           setCurrentUser(res.data.user);
         }

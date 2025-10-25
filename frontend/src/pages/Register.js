@@ -13,11 +13,21 @@ export default function Register() {
     e.preventDefault();
     try {
       // Call Flask API to register
-      const response = await axios.post("http://localhost:5000/api/auth/register", {
-        username,
-        email,
-        password,
-      });
+      // const response = await axios.post("http://localhost:5000/api/auth/register", {
+      //   username,
+      //   email,
+      //   password,
+      // });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/auth/register`,
+        {
+          username,
+          email,
+          password,
+        },
+        { withCredentials: true } 
+      );
+      
 
       // Show success message
       setMessages([{ type: "success", text: response.data.message || "Registered successfully!" }]);

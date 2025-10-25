@@ -19,7 +19,16 @@ export default function Products() {
     const handleSearch = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.get("http://localhost:5000/api/products", {
+            // const res = await axios.get("http://localhost:5000/api/products", {
+            //     params: {
+            //         search_name: searchName,
+            //         search_description: searchDescription,
+            //         min_price: minPrice,
+            //         max_price: maxPrice,
+            //     },
+            //     withCredentials: true,
+            // });
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products`, {
                 params: {
                     search_name: searchName,
                     search_description: searchDescription,
@@ -28,6 +37,7 @@ export default function Products() {
                 },
                 withCredentials: true,
             });
+
             // Update products state 
             setProducts(res.data);
         } catch (err) {
@@ -39,7 +49,16 @@ export default function Products() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/products", {
+                // const res = await axios.get("http://localhost:5000/api/products", {
+                //     params: {
+                //         search_name: searchName,
+                //         search_description: searchDescription,
+                //         min_price: minPrice,
+                //         max_price: maxPrice,
+                //     },
+                //     withCredentials: true, // send cookies/session for authentication
+                // });
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products`, {
                     params: {
                         search_name: searchName,
                         search_description: searchDescription,
@@ -48,6 +67,7 @@ export default function Products() {
                     },
                     withCredentials: true, // send cookies/session for authentication
                 });
+
                 setProducts(res.data);
             } catch (err) {
                 console.error(err);
@@ -60,7 +80,13 @@ export default function Products() {
     // Handle add to cart
     const handleAddToCart = async (productId) => {
         try {
-            const res = await axios.post(`http://localhost:5000/api/cart/add/${productId}`, {}, { withCredentials: true });
+            // const res = await axios.post(`http://localhost:5000/api/cart/add/${productId}`, {}, { withCredentials: true });
+            const res = await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/cart/add/${productId}`,
+                {},
+                { withCredentials: true }
+            );
+            
             window.dispatchEvent(new Event("cart-updated"))
             setMessages([{ type: "success", text: res.data.message }]);
         } catch (err) {

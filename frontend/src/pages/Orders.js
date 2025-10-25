@@ -10,7 +10,11 @@ export default function Orders() {
         const fetchOrders = async () => {
             try {
                 // Call the Flask API to get the current user's orders
-                const res = await axios.get("http://localhost:5000/api/orders", { withCredentials: true });
+                // const res = await axios.get("http://localhost:5000/api/orders", { withCredentials: true });
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders`, {
+                    withCredentials: true,
+                  });
+                  
                 setOrders(res.data.orders); // store orders in state
             } catch (err) {
                 console.error("Failed to fetch orders:", err);

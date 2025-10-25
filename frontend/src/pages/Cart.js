@@ -25,16 +25,19 @@ export default function Cart() {
   // Fetch cart from backend
   const fetchCart = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/cart", { withCredentials: true });
+      // const res = await axios.get("http://localhost:5000/api/cart", { withCredentials: true });
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cart`, {
+        withCredentials: true,
+      });
       setCartItems(res.data.cart);
       setTotal(res.data.total);
     } catch (err) {
       console.error("Error fetching cart:", err);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
-  
+
   // Fetch cart on component mount
   useEffect(() => {
     fetchCart();
@@ -43,11 +46,17 @@ export default function Cart() {
   // Handle quantity update
   const handleUpdateQuantity = async (productId, quantity) => {
     try {
+      // const res = await axios.post(
+      //   `http://localhost:5000/api/cart/update/${productId}`,
+      //   { quantity },
+      //   { withCredentials: true }
+      // );
       const res = await axios.post(
-        `http://localhost:5000/api/cart/update/${productId}`,
+        `${process.env.REACT_APP_API_URL}/api/cart/update/${productId}`,
         { quantity },
         { withCredentials: true }
       );
+
       setMessages([{ type: "success", text: res.data.message }]);
       fetchCart();
     } catch (err) {
@@ -58,7 +67,13 @@ export default function Cart() {
   // Handle remove from cart
   const handleRemove = async (productId) => {
     try {
-      const res = await axios.post(`http://localhost:5000/api/cart/remove/${productId}`, {}, { withCredentials: true });
+      // const res = await axios.post(`http://localhost:5000/api/cart/remove/${productId}`, {}, { withCredentials: true });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/cart/remove/${productId}`,
+        {},
+        { withCredentials: true }
+      );
+
       setMessages([{ type: "success", text: res.data.message }]);
       fetchCart();
     } catch (err) {
@@ -91,11 +106,17 @@ export default function Cart() {
       console.log("Checkout total:", total);
 
       // Request backend to create PaymentIntent
+      // const res = await axios.post(
+      //   "http://localhost:5000/api/create-payment-intent",
+      //   { amount: total }, // amount in dollars (convert to cents in backend)
+      //   { withCredentials: true }
+      // );
       const res = await axios.post(
-        "http://localhost:5000/api/create-payment-intent",
+        `${process.env.REACT_APP_API_URL}/api/create-payment-intent`,
         { amount: total }, // amount in dollars (convert to cents in backend)
         { withCredentials: true }
       );
+
       const { clientSecret } = res.data;
       setClientSecret(clientSecret);
 
@@ -112,7 +133,13 @@ export default function Cart() {
         setMessages([{ type: "danger", text: paymentResult.error.message }]);
       } else if (paymentResult.paymentIntent.status === "succeeded") {
         // Payment successful, now clear cart via backend
-        await axios.post("http://localhost:5000/api/cart/checkout", {}, { withCredentials: true });
+        // await axios.post("http://localhost:5000/api/cart/checkout", {}, { withCredentials: true });
+        await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/cart/checkout`,
+          {},
+          { withCredentials: true }
+        );
+        
         setMessages([{ type: "success", text: "Payment successful! Cart cleared." }]);
         fetchCart();
       }
