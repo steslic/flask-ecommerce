@@ -7,6 +7,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [messages, setMessages] = useState([]); // array of { type: 'success'|'danger', text }
+  const [isAdmin, setIsAdmin] = useState(false); // new 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,10 +25,11 @@ export default function Register() {
           username,
           email,
           password,
+          is_admin: isAdmin,
         },
-        { withCredentials: true } 
+        { withCredentials: true }
       );
-      
+
 
       // Show success message
       setMessages([{ type: "success", text: response.data.message || "Registered successfully!" }]);
@@ -117,6 +119,18 @@ export default function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+        </div>
+
+        {/* Admin checkbox */}
+        <div className="form-check mb-3">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="isAdmin"
+            checked={isAdmin}
+            onChange={(e) => setIsAdmin(e.target.checked)}
+          />
+          <label className="form-check-label" htmlFor="isAdmin">Register as admin</label>
         </div>
 
         <div className="d-grid mb-3">
