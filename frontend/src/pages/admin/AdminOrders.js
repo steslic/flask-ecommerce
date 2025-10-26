@@ -9,7 +9,12 @@ export default function AdminOrders() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/admin/orders", { withCredentials: true });
+                // const res = await axios.get("http://localhost:5000/api/admin/orders", { withCredentials: true });
+                const res = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/admin/orders`,
+                    { withCredentials: true }
+                );
+
                 setOrders(res.data.orders);
             } catch (err) {
                 console.error("Failed to fetch admin orders:", err);
@@ -21,11 +26,17 @@ export default function AdminOrders() {
     // Function to handle status update
     const handleStatusChange = async (orderId, newStatus) => {
         try {
+            // const res = await axios.put(
+            //     `http://localhost:5000/api/admin/orders/${orderId}`,
+            //     { status: newStatus },
+            //     { withCredentials: true }
+            // );
             const res = await axios.put(
-                `http://localhost:5000/api/admin/orders/${orderId}`,
+                `${process.env.REACT_APP_API_URL}/api/admin/orders/${orderId}`,
                 { status: newStatus },
                 { withCredentials: true }
             );
+
 
             // Update local state after successful update
             setOrders(prev =>

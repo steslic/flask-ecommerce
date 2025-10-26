@@ -16,9 +16,14 @@ export default function EditProduct() {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/products/${id}`, {
-                    withCredentials: true,
-                });
+                // const res = await axios.get(`http://localhost:5000/api/products/${id}`, {
+                //     withCredentials: true,
+                // });
+                const res = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/products/${id}`,
+                    { withCredentials: true }
+                );
+
                 setProduct(res.data);
             } catch (err) {
                 console.error("Failed to load product", err);
@@ -51,12 +56,22 @@ export default function EditProduct() {
             if (selectedFile) formData.append("image", selectedFile);
 
             // Send FormData instead of JSON
-            await axios.put(`http://localhost:5000/api/products/${id}`, formData, {
-                withCredentials: true,
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            // await axios.put(`http://localhost:5000/api/products/${id}`, formData, {
+            //     withCredentials: true,
+            //     headers: {
+            //         "Content-Type": "multipart/form-data",
+            //     },
+            // });
+            await axios.put(
+                `${process.env.REACT_APP_API_URL}/api/products/${id}`,
+                formData,
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
 
             setMessage({ type: "success", text: "Product updated successfully!" });
 
@@ -72,12 +87,22 @@ export default function EditProduct() {
         if (!window.confirm("Delete this product? This action cannot be undone.")) return;
 
         try {
-            await axios.delete(`http://localhost:5000/api/products/${id}`, {
-                withCredentials: true,
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            // await axios.delete(`http://localhost:5000/api/products/${id}`, {
+            //     withCredentials: true,
+            //     headers: {
+            //         "Content-Type": "multipart/form-data",
+            //     },
+            // });
+            await axios.delete(
+                `${process.env.REACT_APP_API_URL}/api/products/${id}`,
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
             navigate("/admin/products");
         } catch (err) {
             console.error("Failed to delete product", err);

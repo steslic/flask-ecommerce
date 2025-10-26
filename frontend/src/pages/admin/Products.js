@@ -14,7 +14,12 @@ export default function Products() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/admin/products", { withCredentials: true });
+                // const res = await axios.get("http://localhost:5000/api/admin/products", { withCredentials: true });
+                const res = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/admin/products`,
+                    { withCredentials: true }
+                );
+
                 setProducts(res.data.products); // assumes API returns { products: [...] }
             } catch (err) {
                 console.error("Failed to fetch products", err);
@@ -27,7 +32,12 @@ export default function Products() {
     const handleDelete = async (productId) => {
         if (!window.confirm("Are you sure you want to delete this product?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/products/${productId}`, { withCredentials: true });
+            // await axios.delete(`http://localhost:5000/api/products/${productId}`, { withCredentials: true });
+            await axios.delete(
+                `${process.env.REACT_APP_API_URL}/api/products/${productId}`,
+                { withCredentials: true }
+            );
+
             setProducts(products.filter(p => p.id !== productId));
             setMessages([{ type: "success", text: "Product deleted successfully." }]);
         } catch (err) {

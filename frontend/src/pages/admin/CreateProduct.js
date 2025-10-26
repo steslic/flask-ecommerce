@@ -41,12 +41,22 @@ export default function CreateProduct() {
             }
 
             // Backend: create new product
-            await axios.post("http://localhost:5000/api/products", data, {
-                withCredentials: true,
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                }, // for file upload
-            });
+            // await axios.post("http://localhost:5000/api/products", data, {
+            //     withCredentials: true,
+            //     headers: {
+            //         "Content-Type": "multipart/form-data",
+            //     }, // for file upload
+            // });
+            await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/products`,
+                data,
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
 
             setMessage({ type: "success", text: "Product created successfully!" });
             setTimeout(() => navigate("/admin/products"), 1000);
