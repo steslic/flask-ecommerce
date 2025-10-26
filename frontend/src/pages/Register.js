@@ -122,7 +122,7 @@ export default function Register() {
         </div>
 
         {/* Admin checkbox */}
-        <div className="form-check mb-3">
+        <div className="form-check mb-3" style={{ backgroundColor: "yellow" }}>
           <input
             type="checkbox"
             className="form-check-input"
