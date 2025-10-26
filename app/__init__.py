@@ -63,8 +63,8 @@ def create_app():
     # CORS configuration for React development (NEW)
     # CORS(app, origins=['http://localhost:3000'], supports_credentials=True)  # NEW
     CORS(app, supports_credentials=True, origins=[
-        "https://flask-ecommerce-o41y.onrender.com",
-        "https://flask-ecommerce-7jzh6tmxb-steslics-projects.vercel.app",
+        # "https://flask-ecommerce-o41y.onrender.com",
+        "flask-ecommerce-j9cilmwx4-steslics-projects.vercel.app",
         "http://localhost:3000"
     ])
 
