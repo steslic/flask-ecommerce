@@ -64,7 +64,8 @@ def create_app():
     # CORS(app, origins=['http://localhost:3000'], supports_credentials=True)  # NEW
     CORS(app, supports_credentials=True, origins=[
         # "https://flask-ecommerce-o41y.onrender.com",
-        "flask-ecommerce-j9cilmwx4-steslics-projects.vercel.app",
+        # "flask-ecommerce-j9cilmwx4-steslics-projects.vercel.app",
+        "https://flask-ecommerce-orpin.vercel.app",
         "http://localhost:3000"
     ])
 
