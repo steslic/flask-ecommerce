@@ -50,7 +50,7 @@ def create_app():
 
     # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
     app.config['SESSION_COOKIE_SAMESITE'] = 'None'
-    app.config['SESSION_COOKIE_SECURE'] = False 
+    app.config['SESSION_COOKIE_SECURE'] = True 
     # Initialize extensions
     db.init_app(app)
     bcrypt.init_app(app)
@@ -64,6 +64,7 @@ def create_app():
     # CORS(app, origins=['http://localhost:3000'], supports_credentials=True)  # NEW
     CORS(app, supports_credentials=True, origins=[
         "https://flask-ecommerce-o41y.onrender.com",
+        "https://flask-ecommerce-7jzh6tmxb-steslics-projects.vercel.app",
         "http://localhost:3000"
     ])
 
