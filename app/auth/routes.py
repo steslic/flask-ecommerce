@@ -65,6 +65,7 @@ def api_register():
     username = data.get("username")
     email = data.get("email")
     password = data.get("password")
+    is_admin = data.get("is_admin", False)
 
     if not username or not email or not password:
         return jsonify({"error": "Missing fields"}), 400
@@ -74,7 +75,7 @@ def api_register():
         return jsonify({"error": "Email already registered"}), 409
 
     hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
-    user = User(username=username, email=email, password=hashed_pw)
+    user = User(username=username, email=email, password=hashed_pw, is_admin=is_admin)
     db.session.add(user)
     db.session.commit()
 
