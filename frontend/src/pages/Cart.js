@@ -139,7 +139,7 @@ export default function Cart() {
           {},
           { withCredentials: true }
         );
-        
+
         setMessages([{ type: "success", text: "Payment successful! Cart cleared." }]);
         fetchCart();
       }
@@ -273,7 +273,27 @@ export default function Cart() {
             <div className="mb-3">
               <label>Enter Payment Details:</label>
               <div style={{ border: "1px solid #ccc", padding: "10px", borderRadius: "6px" }}>
-                <CardElement />
+                {/* <CardElement /> */}
+                <CardElement
+                  options={{
+                    style: {
+                      base: {
+                        fontSize: "16px",
+                        color: "#32325d",             // main text color
+                        backgroundColor: "#ffffff",   // background inside Stripe input
+                        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                        '::placeholder': {
+                          color: "#aab7c4",           // placeholder text color
+                        },
+                      },
+                      invalid: {
+                        color: "#fa755a",             // error text color
+                        iconColor: "#fa755a",         // error icon color
+                      },
+                    },
+                  }}
+                />
+
               </div>
             </div>
 
