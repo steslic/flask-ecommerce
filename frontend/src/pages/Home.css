@@ -1,0 +1,36 @@
+.container .text-center .btn-view-products {
+    display: inline-block !important;
+    width: auto !important;
+    min-width: 120px !important;  
+    max-width: 220px !important;   
+    padding: 0.375rem 0.75rem !important;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  .btn-view-products {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 8px 18px;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-decoration: none;
+    white-space: nowrap;
+    min-width: 120px;
+    max-width: 220px;
+    transition: all 0.18s ease;
+  }
+  
+  .btn-view-products:hover {
+    transform: scale(1.04);
+    box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+  }
+  
+  .btn-view-products:active {
+    transform: scale(0.98);
+  }

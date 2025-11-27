@@ -1,0 +1,16 @@
+.product-card .card-text {
+    text-align: left;
+    /* Aligns description to the left */
+}
+
+/* Flash message fade effect */
+.fade-message {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
